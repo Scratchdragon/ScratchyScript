@@ -1,0 +1,81 @@
+//Osierra
+int map[15][30] = {};
+def void make() {
+  //make
+  int x = 0;
+  int y = 0;
+  repeat(15) {
+    x = 0;
+    repeat(30) {
+      if(map[y][x] == 1) {
+        map[y][x] = 0;
+        map[y][x - 1] = 1;
+        if(x == 0) {
+          map[y][x - 1] = 0;
+        };
+      };
+      x ++;
+    };
+    y ++;
+  };
+};
+def void render() {
+  clear();
+  //render
+  int x = 0;
+  int y = 0;
+  repeat(15) {
+    x = 0;
+    repeat(30) {
+      if(map[y][x] == 2) {
+        print("#");
+      };
+      if(map[y][x] == 1) {
+        print("0");
+      };
+      if(map[y][x] == 0) {
+        print("-");
+      };
+      x ++;
+    };
+    print("\n");
+    y ++;
+  };
+};
+def int main() {
+  int count = 0;
+  int spawn = 1;
+  int playerY = 0;
+  int playerX = 0;
+  while(true) {
+    seed();
+    spawn ++;
+    if(spawn > random(0,8)) {
+      spawn = 0;
+      map[random(0,14)][29] = 1;
+    };
+    count ++;
+    if(getch() == 'w') {
+      map[playerY][playerX] = 0;
+      playerY = (playerY - 1);
+    };
+    if(getch() == 's') {
+      map[playerY][playerX] = 0;
+      playerY ++;
+    };
+    if(getch() == 'a') {
+      map[playerY][playerX] = 0;
+      playerX = (playerX - 1);
+    };
+    if(getch() == 'd') {
+      map[playerY][playerX] = 0;
+      playerX ++;
+    };
+  };
+  map[playerY][playerX] = 2;
+  clear();
+  make();
+  render();
+  print("Stopping...\n");
+  print("Game exitted.");
+};
